@@ -11,6 +11,7 @@ function App() {
   const [error, setError] = useState(false)
   const [poke, setPoke] = useState({})
   const [DBZ, setDBZ] = useState({})
+  const [movie, setMovie] = useState({})
 
   useEffect(() => {
     const getData = async () => {
@@ -27,13 +28,19 @@ function App() {
           'https://dragonball-api.com/api/characters/16'
         )
 
+        const res4 = await axios.get(
+          'http://www.omdbapi.com/?s=Jujutsu+Kaisen+0&apikey=6c39fb2c'
+        )
+
         setPerson(res.data)
         setPoke(res2.data)
         setDBZ(res3.data)
+        setMovie(res4.data)
 
         console.log('Person:', res.data)
         console.log('Pokemon:', res2.data)
         console.log('Dragon Ball:', res3.data)
+        console.log('Movie', res4.data)
 
         setLoading(false)
       } catch (e) {
@@ -58,8 +65,6 @@ function App() {
     <>
       <section id="center">
         <div className="hero">
-
-          {/* POKEMON */}
           <img
             src={poke.sprites?.front_default}
             className="base"
@@ -71,8 +76,6 @@ function App() {
           <h1>{poke.name}</h1>
 
           <h2>{poke.types[0].type.name}</h2>
-
-          {/* DRAGON BALL */}
           <img
             src={DBZ.image}
             className="base"
@@ -82,10 +85,8 @@ function App() {
           />
 
           <h1>{DBZ.name}</h1>
-
+          <h1>{movie.Search?.[0]?.Title}</h1>
         </div>
-
-        {/* PERSON */}
         <div>
           <h1>{person[43]?.nome}</h1>
 
